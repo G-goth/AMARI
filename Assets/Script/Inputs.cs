@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace States
+namespace Inputs
 {
-    public class States : MonoBehaviour
+    public class Inputs : MonoBehaviour
     {
         // Start is called before the first frame update
         void Start()

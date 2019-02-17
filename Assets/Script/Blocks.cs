@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace States
+namespace Blocks
 {
-    public class States : MonoBehaviour
+    public class Blocks : MonoBehaviour
     {
         // Start is called before the first frame update
         void Start()
