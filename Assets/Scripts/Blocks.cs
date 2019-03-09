@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Blocks
 {
-    public class Blocks : MonoBehaviour
+    public class Blocks : MonoBehaviour, IBlockBehaviourProvider
     {
         // Start is called before the first frame update
         void Start()

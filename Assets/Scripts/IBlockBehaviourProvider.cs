@@ -1,4 +1,4 @@
-namespace AMARI.Assets.Script
+namespace Blocks
 {
     public interface IBlockBehaviourProvider
     {
