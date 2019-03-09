@@ -2,9 +2,8 @@
 using UniRx.Triggers;
 using UnityEngine;
 using Inputs;
-using Players;
 
-namespace PlayerInputImpls
+namespace Players.PlayerInputImpls
 {
     public class MultiControllerInputProvider : MonoBehaviour
     {
