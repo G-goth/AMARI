@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UniRx;
+using UniRx.Triggers;
 using AMARI.Assets.Scripts;
 
 namespace AMARI.Assets.Scripts
@@ -19,6 +20,10 @@ namespace AMARI.Assets.Scripts
         // Start is called before the first frame update
         void Start()
         {
+            var allocRandamNum = this.UpdateAsObservable()
+                .Subscribe(_ => {});
+
+            AllocateRandomNumbers();
             objectList = GameObject.FindGameObjectsWithTag("Cube").ToList();
             rendererList = objectList.Select(obj => obj.GetComponent<Renderer>()).ToList();
         }
@@ -34,5 +39,8 @@ namespace AMARI.Assets.Scripts
                 rend.material = _defMaterial;
             }
         }
+
+        public void AllocateRandomNumbers()
+        {}
     }
 }
