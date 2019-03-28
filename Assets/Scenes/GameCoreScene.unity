@@ -125,8 +125,8 @@ GameObject:
   - component: {fileID: 25906543}
   - component: {fileID: 25906542}
   m_Layer: 0
-  m_Name: NumberCube (5)
-  m_TagString: Untagged
+  m_Name: NumberCube6
+  m_TagString: Cube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -217,8 +217,8 @@ GameObject:
   - component: {fileID: 30427058}
   - component: {fileID: 30427057}
   m_Layer: 0
-  m_Name: NumberCube (2)
-  m_TagString: Untagged
+  m_Name: NumberCube3
+  m_TagString: Cube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -309,8 +309,8 @@ GameObject:
   - component: {fileID: 162798675}
   - component: {fileID: 162798674}
   m_Layer: 0
-  m_Name: NumberCube (3)
-  m_TagString: Untagged
+  m_Name: NumberCube4
+  m_TagString: Cube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -561,8 +561,8 @@ GameObject:
   - component: {fileID: 406069004}
   - component: {fileID: 406069003}
   m_Layer: 0
-  m_Name: NumberCube (1)
-  m_TagString: Untagged
+  m_Name: NumberCube2
+  m_TagString: Cube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -786,7 +786,7 @@ GameObject:
   - component: {fileID: 487696602}
   m_Layer: 0
   m_Name: GameScriptObject
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -814,10 +814,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 487696600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92c89b3cee966154b88ac2dfd6ab6e20, type: 3}
+  m_Script: {fileID: 11500000, guid: 643813b9f3c21f241bac67921dd47c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerId: 0
+  _material: {fileID: 10756, guid: 0000000000000000e000000000000000, type: 0}
+  _defMaterial: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &487696603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -827,7 +828,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 487696600}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0c5f4208fab65440b995a550bec2c3d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a38aac25ac0aa24cb8b3fe085fbc8c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &519335428
@@ -845,8 +846,8 @@ GameObject:
   - component: {fileID: 519335430}
   - component: {fileID: 519335429}
   m_Layer: 0
-  m_Name: NumberCube (1)
-  m_TagString: Untagged
+  m_Name: NumberCube1
+  m_TagString: Cube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1181,8 +1182,8 @@ GameObject:
   - component: {fileID: 734212893}
   - component: {fileID: 734212892}
   m_Layer: 0
-  m_Name: NumberCube (7)
-  m_TagString: Untagged
+  m_Name: NumberCube8
+  m_TagString: Cube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1273,8 +1274,8 @@ GameObject:
   - component: {fileID: 850968985}
   - component: {fileID: 850968984}
   m_Layer: 0
-  m_Name: NumberCube (8)
-  m_TagString: Untagged
+  m_Name: NumberCube9
+  m_TagString: Cube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1365,8 +1366,8 @@ GameObject:
   - component: {fileID: 953154157}
   - component: {fileID: 953154156}
   m_Layer: 0
-  m_Name: NumberCube (6)
-  m_TagString: Untagged
+  m_Name: NumberCube7
+  m_TagString: Cube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1862,8 +1863,8 @@ GameObject:
   - component: {fileID: 1567711941}
   - component: {fileID: 1567711940}
   m_Layer: 0
-  m_Name: NumberCube (4)
-  m_TagString: Untagged
+  m_Name: NumberCube5
+  m_TagString: Cube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
