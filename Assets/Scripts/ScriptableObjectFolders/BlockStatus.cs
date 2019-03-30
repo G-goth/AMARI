@@ -11,6 +11,6 @@ namespace AMARI.Assets.Scripts
     {
         [SerializeField]
         private int[] blockRndNumber;
-        public int blockRndNumberProp{ get; }
+        public int this[int blkNum] => blockRndNumber[blkNum];
     }
 }
