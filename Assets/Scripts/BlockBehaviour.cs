@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UniRx;
 using UniRx.Triggers;
-using AMARI.Assets.Scripts;
+using AMARI.Assets.Scripts.ScriptableObjectFolder;
 
 namespace AMARI.Assets.Scripts
 {
@@ -16,14 +16,19 @@ namespace AMARI.Assets.Scripts
         private Material _defMaterial = (default);
         private List<GameObject> objectList = new List<GameObject>();
         private List<Renderer> rendererList = new List<Renderer>();
-        // private BlockStatus blkstatus;
+        private BlockStatus blkNumberArray;
+        private static readonly int CUBEINDEXNUMBER = 9;
 
         /// <summary>
         /// Awake is called when the script instance is being loaded.
         /// </summary>
         void Awake()
         {
-            // blkstatus = Resources.Load<BlockStatus>("BlockStatus");
+            blkNumberArray = Resources.Load<BlockStatus>("BlockStatus");
+            for(int i = 0; i < CUBEINDEXNUMBER; ++i)
+            {
+                blkNumberArray[i] = Random.Range(1, 10);
+            }
         }
 
         // Start is called before the first frame update
@@ -31,8 +36,7 @@ namespace AMARI.Assets.Scripts
         {
             var allocRandamNum = this.UpdateAsObservable()
                 .Subscribe(_ => {});
-
-            objectList = GameObject.FindGameObjectsWithTag("Cube").ToList();
+            objectList.AddRange(GameObject.FindGameObjectsWithTag("Cube").OrderBy(go => go.name));
             rendererList = objectList.Select(obj => obj.GetComponent<Renderer>()).ToList();
         }
 
@@ -49,6 +53,8 @@ namespace AMARI.Assets.Scripts
         }
 
         public void AllocateRandomNumbers()
-        {}
+        {
+            Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        }
     }
 }

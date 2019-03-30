@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AMARI.Assets.Scripts
+namespace AMARI.Assets.Scripts.ScriptableObjectFolder
 {
     [CreateAssetMenu(
         fileName = "BlockStatus", 
@@ -11,6 +11,10 @@ namespace AMARI.Assets.Scripts
     {
         [SerializeField]
         private int[] blockRndNumber;
-        public int this[int blkNum] => blockRndNumber[blkNum];
+        public int this[int blkIndex]
+        {
+            get => blockRndNumber[blkIndex];
+            set => blockRndNumber[blkIndex] = value;
+        }
     }
 }

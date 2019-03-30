@@ -7,5 +7,6 @@ namespace AMARI.Assets.Scripts
     {
         void OnRecievedOneShotMaterialChange(GameObject obj);
         void OnRecievedMaterialAllChange();
+        void AllocateRandomNumbers();
     }
 }

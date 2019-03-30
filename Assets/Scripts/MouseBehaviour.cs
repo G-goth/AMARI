@@ -28,6 +28,11 @@ namespace AMARI.Assets.Scripts
                         eventData: null,
                         functor: (reciever, eventData) => reciever.OnRecievedOneShotMaterialChange(GetObjectByRayCastHit())
                     );
+                    ExecuteEvents.Execute<IMessageProvider>(
+                        target: gameObject,
+                        eventData: null,
+                        functor: (reciever, eventData) => reciever.AllocateRandomNumbers()
+                    );
                 });
 
             // マウスボタンリリース時の挙動
