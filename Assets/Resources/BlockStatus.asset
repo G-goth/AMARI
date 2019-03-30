@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6094efbb2ac4f2749b8bc731dc6d3143, type: 3}
   m_Name: BlockStatus
   m_EditorClassIdentifier: 
-  blockRndNumber: 0
+  blockRndNumber: 

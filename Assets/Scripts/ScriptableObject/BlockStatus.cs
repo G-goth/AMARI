@@ -10,7 +10,7 @@ namespace AMARI.Assets.Scripts
     public class BlockStatus : ScriptableObject
     {
         [SerializeField]
-        private int blockRndNumber;
+        private int[] blockRndNumber;
         public int blockRndNumberProp{ get; }
     }
 }

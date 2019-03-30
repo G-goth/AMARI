@@ -16,14 +16,22 @@ namespace AMARI.Assets.Scripts
         private Material _defMaterial = (default);
         private List<GameObject> objectList = new List<GameObject>();
         private List<Renderer> rendererList = new List<Renderer>();
-        
+        // private BlockStatus blkstatus;
+
+        /// <summary>
+        /// Awake is called when the script instance is being loaded.
+        /// </summary>
+        void Awake()
+        {
+            // blkstatus = Resources.Load<BlockStatus>("BlockStatus");
+        }
+
         // Start is called before the first frame update
         void Start()
         {
             var allocRandamNum = this.UpdateAsObservable()
                 .Subscribe(_ => {});
 
-            AllocateRandomNumbers();
             objectList = GameObject.FindGameObjectsWithTag("Cube").ToList();
             rendererList = objectList.Select(obj => obj.GetComponent<Renderer>()).ToList();
         }
