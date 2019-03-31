@@ -3,6 +3,11 @@ using System.Collections.Generic;
 
 namespace AMARI.Assets.Scripts
 {
+    public enum LRSwitch{
+        LEFT,
+        RIGHT
+    };
+
     public static class StandardFunctionExtentions
     {
         public static string TwoStepConversion(this string extStr)
@@ -69,9 +74,24 @@ namespace AMARI.Assets.Scripts
             }
         }
 
-        public static bool IsTupleContains<TObject, TComponent, TValue>(this IList<(TObject, TComponent)> extList, TValue value)
+        public static bool TupleContains<TObject, TComponent, TValue>(this IList<(TObject, TComponent)> extList, TValue value, LRSwitch lr)
         {
-            return extList.Select(obj => obj.Item1).Any(item => item.Equals(value));
+            if(lr == LRSwitch.LEFT)
+            {
+                return extList.Select(obj => obj.Item1).Any(item => item.Equals(value));
+            }
+            else if(lr == LRSwitch.RIGHT)
+            {
+                return extList.Select(obj => obj.Item2).Any(item => item.Equals(value));
+            }
+            else
+            {
+                return default;
+            }
+        }
+        public static TComponent TupleContainsComponent<TObject, TComponent, TValue>(this IList<(TObject, TComponent)> extList, TValue value)
+        {
+            return extList.First(obj => obj.Item1.Equals(value)).Item2;
         }
     }
 }

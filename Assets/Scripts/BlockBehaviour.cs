@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UniRx;
 using UniRx.Triggers;
 using AMARI.Assets.Scripts.ScriptableObjectFolder;
@@ -13,6 +14,7 @@ namespace AMARI.Assets.Scripts
         private Material _material = (default);
         [SerializeField]
         private Material _defMaterial = (default);
+        List<int> blockNumberList = new List<int>();
         private List<(GameObject, Renderer)> cubeRendererTupleList = new List<(GameObject, Renderer)>();
         private List<(GameObject, TextMesh)> cubeTextTupleList = new List<(GameObject, TextMesh)>();
         private BlockStatus blkNumberArray;
@@ -61,6 +63,7 @@ namespace AMARI.Assets.Scripts
             {
                 rend.Item2.material = _defMaterial;
             }
+            blockNumberList.Clear();
         }
 
         private void AllocateRandomNumbers()
@@ -74,7 +77,16 @@ namespace AMARI.Assets.Scripts
 
         public void OnRecievedOneShotChangeNumbers(GameObject obj)
         {
-            Debug.Log(cubeTextTupleList.IsTupleContains(obj));
+            // 送られてきたGameObjectがcubeTextTupleListにある場合にはTextMeshをintに変換してListに入れる
+            if(cubeTextTupleList.TupleContains(obj, LRSwitch.LEFT))
+            {
+                blockNumberList.Add(int.Parse(cubeTextTupleList.TupleContainsComponent(obj).text));
+                ExecuteEvents.Execute<ICalculateProvider>(
+                    target: gameObject,
+                    eventData: null,
+                    functor: (reciever, eventData) => reciever.CalculateLimited(blockNumberList)
+                );
+            }
         }
     }
 }

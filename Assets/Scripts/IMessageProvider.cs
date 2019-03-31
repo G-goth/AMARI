@@ -1,9 +1,15 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace AMARI.Assets.Scripts
 {
-    public interface IMessageProvider : IEventSystemHandler
+    interface ICalculateProvider : IEventSystemHandler
+    {
+        void CalculateLimited(List<int> numList);
+    }
+    
+    interface IMessageProvider : IEventSystemHandler
     {
         void OnRecievedOneShotMaterialChange(GameObject obj);
         void OnRecievedMaterialAllChange();
