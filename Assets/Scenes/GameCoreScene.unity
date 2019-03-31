@@ -469,8 +469,8 @@ GameObject:
   - component: {fileID: 212258044}
   - component: {fileID: 212258043}
   m_Layer: 0
-  m_Name: NumberText
-  m_TagString: Untagged
+  m_Name: NumberText5
+  m_TagString: CubeText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1017,8 +1017,8 @@ GameObject:
   - component: {fileID: 682483529}
   - component: {fileID: 682483528}
   m_Layer: 0
-  m_Name: NumberText
-  m_TagString: Untagged
+  m_Name: NumberText4
+  m_TagString: CubeText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1416,8 +1416,8 @@ GameObject:
   - component: {fileID: 1191231434}
   - component: {fileID: 1191231433}
   m_Layer: 0
-  m_Name: NumberText
-  m_TagString: Untagged
+  m_Name: NumberText6
+  m_TagString: CubeText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1639,8 +1639,8 @@ GameObject:
   - component: {fileID: 1254962273}
   - component: {fileID: 1254962272}
   m_Layer: 0
-  m_Name: NumberText
-  m_TagString: Untagged
+  m_Name: NumberText8
+  m_TagString: CubeText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1730,8 +1730,8 @@ GameObject:
   - component: {fileID: 1536841143}
   - component: {fileID: 1536841142}
   m_Layer: 0
-  m_Name: NumberText
-  m_TagString: Untagged
+  m_Name: NumberText1
+  m_TagString: CubeText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1913,8 +1913,8 @@ GameObject:
   - component: {fileID: 1770951875}
   - component: {fileID: 1770951874}
   m_Layer: 0
-  m_Name: NumberText
-  m_TagString: Untagged
+  m_Name: NumberText3
+  m_TagString: CubeText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2004,8 +2004,8 @@ GameObject:
   - component: {fileID: 2114993987}
   - component: {fileID: 2114993986}
   m_Layer: 0
-  m_Name: NumberText
-  m_TagString: Untagged
+  m_Name: NumberText7
+  m_TagString: CubeText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2095,8 +2095,8 @@ GameObject:
   - component: {fileID: 2119698223}
   - component: {fileID: 2119698222}
   m_Layer: 0
-  m_Name: NumberText
-  m_TagString: Untagged
+  m_Name: NumberText9
+  m_TagString: CubeText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2277,8 +2277,8 @@ GameObject:
   - component: {fileID: 2135335476}
   - component: {fileID: 2135335475}
   m_Layer: 0
-  m_Name: NumberText
-  m_TagString: Untagged
+  m_Name: NumberText2
+  m_TagString: CubeText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

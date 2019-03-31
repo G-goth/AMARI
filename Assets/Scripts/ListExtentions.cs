@@ -2,6 +2,13 @@ using System.Collections.Generic;
 
 namespace AMARI.Assets.Scripts
 {
+    public static class StandardFunctionExtentions
+    {
+        public static string TwoStepConversion(this string extStr)
+        {
+            return "";
+        }
+    }
     public static class ListExtentions
     {
         /// <summary>

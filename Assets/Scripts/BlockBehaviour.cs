@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UniRx;
 using UniRx.Triggers;
 using AMARI.Assets.Scripts.ScriptableObjectFolder;
@@ -15,7 +14,10 @@ namespace AMARI.Assets.Scripts
         [SerializeField]
         private Material _defMaterial = (default);
         private List<GameObject> objectList = new List<GameObject>();
-        private List<Renderer> rendererList = new List<Renderer>();
+        private List<GameObject> cubeTextMeshList = new List<GameObject>();
+        private List<(GameObject, Renderer)> cubeRendererTupleList = new List<(GameObject, Renderer)>();
+        private List<(GameObject, TextMesh)> cubeTextTupleList = new List<(GameObject, TextMesh)>();
+
         private BlockStatus blkNumberArray;
         private static readonly int CUBEINDEXNUMBER = 9;
 
@@ -34,10 +36,25 @@ namespace AMARI.Assets.Scripts
         // Start is called before the first frame update
         void Start()
         {
-            var allocRandamNum = this.UpdateAsObservable()
-                .Subscribe(_ => {});
+            var allocRandamNum = this.UpdateAsObservable().Subscribe(_ => {});
+
+            // オブジェクト名で昇順でソートしてRendererをListに代入する
             objectList.AddRange(GameObject.FindGameObjectsWithTag("Cube").OrderBy(go => go.name));
-            rendererList = objectList.Select(obj => obj.GetComponent<Renderer>()).ToList();
+            foreach(var cube in objectList)
+            {
+                cubeRendererTupleList.Add((cube, cube.GetComponent<Renderer>()));
+            }
+
+            // オブジェクト名で昇順でソートしてTextMeshをListに代入する
+            cubeTextMeshList.AddRange(GameObject.FindGameObjectsWithTag("CubeText").OrderBy(go => go.name));
+            foreach(var cube in cubeTextMeshList)
+            {
+                cubeTextTupleList.Add((cube, cube.GetComponent<TextMesh>()));
+            }
+            // for(int i = 0; i < CUBEINDEXNUMBER; ++i)
+            // {
+            //     textMeshList[i].text = blkNumberArray[i].ToString();
+            // }
         }
 
         public void OnRecievedOneShotMaterialChange(GameObject obj)
@@ -46,15 +63,19 @@ namespace AMARI.Assets.Scripts
         }
         public void OnRecievedMaterialAllChange()
         {
-            foreach(var rend in rendererList)
+            foreach(var rend in cubeRendererTupleList)
             {
-                rend.material = _defMaterial;
+                rend.Item2.material = _defMaterial;
             }
         }
 
         public void AllocateRandomNumbers()
         {
             Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        }
+        public void OnRecievedOneShotChangeNumbers(GameObject obj)
+        {
+            Debug.Log(obj.name);
         }
     }
 }
