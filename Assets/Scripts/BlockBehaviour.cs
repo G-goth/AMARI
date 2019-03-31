@@ -77,7 +77,7 @@ namespace AMARI.Assets.Scripts
 
         public void OnRecievedOneShotChangeNumbers(GameObject obj)
         {
-            // 送られてきたGameObjectがcubeTextTupleListにある場合にはTextMeshをintに変換してListに入れる
+            // 送られてきたGameObjectがcubeTextTupleListにある場合にはTextMeshのTextをintに変換してListに入れる
             if(cubeTextTupleList.TupleContains(obj, LRSwitch.LEFT))
             {
                 blockNumberList.Add(int.Parse(cubeTextTupleList.TupleContainsComponent(obj).text));
