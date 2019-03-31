@@ -73,17 +73,5 @@ namespace AMARI.Assets.Scripts
         {
             return extList.Select(obj => obj.Item1).Any(item => item.Equals(value));
         }
-        public static int TupleContainsInInteger<TObject, TComponent>(this IList<(TObject, TComponent)> extList, int value)
-        {
-            if(extList.Select(obj => obj.Item1).Any(item => item.Equals(value)))
-            {
-                return value;
-            }
-            return 0;
-        }
-        public static string TupleContainsInString<TObject, TComponent>(this IList<(TObject, TComponent)> extList, string value)
-        {
-            return "";
-        }
     }
 }
