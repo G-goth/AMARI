@@ -13,11 +13,8 @@ namespace AMARI.Assets.Scripts
         private Material _material = (default);
         [SerializeField]
         private Material _defMaterial = (default);
-        private List<GameObject> objectList = new List<GameObject>();
-        private List<GameObject> cubeTextMeshList = new List<GameObject>();
         private List<(GameObject, Renderer)> cubeRendererTupleList = new List<(GameObject, Renderer)>();
         private List<(GameObject, TextMesh)> cubeTextTupleList = new List<(GameObject, TextMesh)>();
-
         private BlockStatus blkNumberArray;
         private static readonly int CUBEINDEXNUMBER = 9;
 
@@ -27,18 +24,18 @@ namespace AMARI.Assets.Scripts
         void Awake()
         {
             blkNumberArray = Resources.Load<BlockStatus>("BlockStatus");
-            for(int i = 0; i < CUBEINDEXNUMBER; ++i)
-            {
-                blkNumberArray[i] = Random.Range(1, 10);
-            }
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            var allocRandamNum = this.UpdateAsObservable().Subscribe(_ => {});
+            // キューブに対して乱数を割り当てる
+            var allocRandamNum = this.UpdateAsObservable()
+                .Distinct()
+                .Subscribe(_ => AllocateRandomNumbers());
 
             // オブジェクト名で昇順でソートしてRendererをListに代入する
+            List<GameObject> objectList = new List<GameObject>();
             objectList.AddRange(GameObject.FindGameObjectsWithTag("Cube").OrderBy(go => go.name));
             foreach(var cube in objectList)
             {
@@ -46,15 +43,12 @@ namespace AMARI.Assets.Scripts
             }
 
             // オブジェクト名で昇順でソートしてTextMeshをListに代入する
-            cubeTextMeshList.AddRange(GameObject.FindGameObjectsWithTag("CubeText").OrderBy(go => go.name));
+            List<GameObject> cubeTextMeshList = new List<GameObject>();
+            cubeTextMeshList.AddRange(GameObject.FindGameObjectsWithTag("Cube").OrderBy(go => go.name));
             foreach(var cube in cubeTextMeshList)
             {
-                cubeTextTupleList.Add((cube, cube.GetComponent<TextMesh>()));
+                cubeTextTupleList.Add((cube, cube.GetComponentInChildren<TextMesh>()));
             }
-            // for(int i = 0; i < CUBEINDEXNUMBER; ++i)
-            // {
-            //     textMeshList[i].text = blkNumberArray[i].ToString();
-            // }
         }
 
         public void OnRecievedOneShotMaterialChange(GameObject obj)
@@ -69,13 +63,18 @@ namespace AMARI.Assets.Scripts
             }
         }
 
-        public void AllocateRandomNumbers()
+        private void AllocateRandomNumbers()
         {
-            Debug.Log(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            // キューブに1～9までの乱数を割り当てる
+            for(int i = 0; i < CUBEINDEXNUMBER; ++i)
+            {
+                cubeTextTupleList[i].Item2.text = Random.Range(1, 10).ToString();
+            }
         }
+
         public void OnRecievedOneShotChangeNumbers(GameObject obj)
         {
-            Debug.Log(obj.name);
+            Debug.Log(cubeTextTupleList.IsTupleContains(obj));
         }
     }
 }

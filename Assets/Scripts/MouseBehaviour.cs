@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UniRx;
 using UniRx.Triggers;
-using AMARI.Assets.Scripts;
 
 namespace AMARI.Assets.Scripts
 {
@@ -28,11 +27,11 @@ namespace AMARI.Assets.Scripts
                         eventData: null,
                         functor: (reciever, eventData) => reciever.OnRecievedOneShotMaterialChange(GetObjectByRayCastHit())
                     );
-                    // ExecuteEvents.Execute<IMessageProvider>(
-                    //     target: gameObject,
-                    //     eventData: null,
-                    //     functor: (reciever, eventData) => reciever.OnRecievedOneShotChangeNumbers(GetObjectByRayCastHit())
-                    // );
+                    ExecuteEvents.Execute<IMessageProvider>(
+                        target: gameObject,
+                        eventData: null,
+                        functor: (reciever, eventData) => reciever.OnRecievedOneShotChangeNumbers(GetObjectByRayCastHit())
+                    );
                 });
 
             // マウスボタンリリース時の挙動

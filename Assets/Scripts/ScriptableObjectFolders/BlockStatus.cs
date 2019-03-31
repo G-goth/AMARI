@@ -10,7 +10,7 @@ namespace AMARI.Assets.Scripts.ScriptableObjectFolder
     public class BlockStatus : ScriptableObject
     {
         [SerializeField]
-        private int[] blockRndNumber;
+        private int[] blockRndNumber = (default);
         public int this[int blkIndex]
         {
             get => blockRndNumber[blkIndex];
