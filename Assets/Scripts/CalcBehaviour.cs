@@ -11,7 +11,7 @@ namespace AMARI.Assets.Scripts
     {
         [SerializeField]
         private int LIMIT = 10;
-        private int ans;
+        private int answer;
 
         /// <summary>
         /// Start is called on the frame when a script is enabled just before
@@ -24,9 +24,9 @@ namespace AMARI.Assets.Scripts
 
         public void CalculateLimited(List<int> numList)
         {
-            if(ans < LIMIT)
+            if(answer < LIMIT)
             {
-                ans = numList.Sum();
+                answer = numList.Sum();
                 if(numList.Sum() >= LIMIT)
                 {
                     var over = numList.Sum() - LIMIT;
@@ -34,7 +34,7 @@ namespace AMARI.Assets.Scripts
                 }
                 else
                 {
-                    Debug.Log(ans);
+                    Debug.Log(answer);
                 }
             }
         }

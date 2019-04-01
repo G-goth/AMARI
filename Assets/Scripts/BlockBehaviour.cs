@@ -17,6 +17,8 @@ namespace AMARI.Assets.Scripts
         List<int> blockNumberList = new List<int>();
         private List<(GameObject, Renderer)> cubeRendererTupleList = new List<(GameObject, Renderer)>();
         private List<(GameObject, TextMesh)> cubeTextTupleList = new List<(GameObject, TextMesh)>();
+        private List<GameObject> cubeObjectList = new List<GameObject>();
+        // private List<(GameObject, int)> cubeNumList = new List<(GameObject, int)>();
         private BlockStatus blkNumberArray;
         private static readonly int CUBEINDEXNUMBER = 9;
 
@@ -36,7 +38,7 @@ namespace AMARI.Assets.Scripts
                 .Distinct()
                 .Subscribe(_ => AllocateRandomNumbers());
 
-            // オブジェクト名で昇順でソートしてRendererをListに代入する
+            // オブジェクト名で昇順でソートしてRendererをListに代入する(ここの初期化処理を[SerializeField]を使って書き直す)
             List<GameObject> objectList = new List<GameObject>();
             objectList.AddRange(GameObject.FindGameObjectsWithTag("Cube").OrderBy(go => go.name));
             foreach(var cube in objectList)
@@ -44,12 +46,13 @@ namespace AMARI.Assets.Scripts
                 cubeRendererTupleList.Add((cube, cube.GetComponent<Renderer>()));
             }
 
-            // オブジェクト名で昇順でソートしてTextMeshをListに代入する
+            // オブジェクト名で昇順でソートしてTextMeshをListに代入する(ここの初期化処理を[SerializeField]を使って書き直す)
             List<GameObject> cubeTextMeshList = new List<GameObject>();
             cubeTextMeshList.AddRange(GameObject.FindGameObjectsWithTag("Cube").OrderBy(go => go.name));
             foreach(var cube in cubeTextMeshList)
             {
                 cubeTextTupleList.Add((cube, cube.GetComponentInChildren<TextMesh>()));
+                // cubeNumList.Add((cube, int.Parse(cube.GetComponentInChildren<TextMesh>().text)));
             }
         }
 
@@ -59,6 +62,7 @@ namespace AMARI.Assets.Scripts
         }
         public void OnRecievedMaterialAllChange()
         {
+            AllocateRandomNumbers();
             foreach(var rend in cubeRendererTupleList)
             {
                 rend.Item2.material = _defMaterial;
@@ -74,9 +78,15 @@ namespace AMARI.Assets.Scripts
                 cubeTextTupleList[i].Item2.text = Random.Range(1, 10).ToString();
             }
         }
+        private void AssignRandomNumbersToSelectedCubes()
+        {
+            Debug.Log("List is Clear!!");
+            cubeObjectList.Clear();
+        }
 
         public void OnRecievedOneShotChangeNumbers(GameObject obj)
         {
+            cubeObjectList.Add(obj);
             // 送られてきたGameObjectがcubeTextTupleListにある場合にはTextMeshのTextをintに変換してListに入れる
             if(cubeTextTupleList.TupleContains(obj, LRSwitch.LEFT))
             {
