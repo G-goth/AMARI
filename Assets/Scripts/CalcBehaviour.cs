@@ -29,18 +29,17 @@ namespace AMARI.Assets.Scripts
 
         public void CalculateLimited(List<int> numList)
         {
-            if(answer < LIMIT)
+            if(answer >= LIMIT) return;
+            
+            answer = numList.Sum();
+            if(numList.Sum() >= LIMIT)
             {
-                answer = numList.Sum();
-                if(numList.Sum() >= LIMIT)
-                {
-                    var over = numList.Sum() - LIMIT;
-                    Debug.Log("Over Flow!! Over is " + over);
-                }
-                else
-                {
-                    Debug.Log(answer);
-                }
+                var over = numList.Sum() - LIMIT;
+                Debug.Log("Over Flow!! Over is " + over);
+            }
+            else
+            {
+                Debug.Log(answer);
             }
         }
     }
