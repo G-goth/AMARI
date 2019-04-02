@@ -15,6 +15,8 @@ namespace AMARI.Assets.Scripts
         /// </summary>
         void Start()
         {
+            var ansReset = GetComponent<CalcBehaviour>();
+
             List<GameObject> cubeObjectList = new List<GameObject>();
             // マウスホールド時の挙動
             var mouseHold = this.UpdateAsObservable()
@@ -43,6 +45,7 @@ namespace AMARI.Assets.Scripts
                         functor: (reciever, eventData) => {
                             reciever.OnRecievedMaterialAllChange();
                     });
+                    ansReset.AnswerProp = 0;
                     cubeObjectList.Clear();
                 });
         }
