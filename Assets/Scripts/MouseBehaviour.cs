@@ -51,6 +51,7 @@ namespace AMARI.Assets.Scripts
         }
         private GameObject GetObjectByRayCastHit()
         {
+            // ここに10以上の数値になったときにレイキャストを飛ばさないような処理を書く
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit = new RaycastHit();
             if(Physics.Raycast(ray.origin, ray.direction, out hit, 100.0f))

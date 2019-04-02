@@ -82,8 +82,6 @@ namespace AMARI.Assets.Scripts
             // 送られてきたGameObjectがcubeTextTupleListにある場合にはTextMeshのTextをintに変換してListに入れる
             if(cubeTextTupleList.TupleContains(obj, LRSwitch.LEFT))
             {
-                // Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
-                // Debug.Log(cubeTextTupleList.TupleContainsGetComponent(obj));
                 cubeTextMeshList.Add(cubeTextTupleList.TupleContainsGetComponent(obj));
                 blockNumberList.Add(int.Parse(cubeTextTupleList.TupleContainsGetComponent(obj).text));
                 ExecuteEvents.Execute<ICalculateProvider>(
