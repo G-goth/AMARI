@@ -17,7 +17,7 @@ namespace AMARI.Assets.Scripts
         List<int> blockNumberList = new List<int>();
         private List<(GameObject, Renderer)> cubeRendererTupleList = new List<(GameObject, Renderer)>();
         private List<(GameObject, TextMesh)> cubeTextTupleList = new List<(GameObject, TextMesh)>();
-        private List<GameObject> cubeObjectList = new List<GameObject>();
+        private List<TextMesh> cubeTextMeshList = new List<TextMesh>();
         private static readonly int CUBEINDEXNUMBER = 9;
 
         // Start is called before the first frame update
@@ -42,7 +42,6 @@ namespace AMARI.Assets.Scripts
             foreach(var cube in cubeTextMeshList)
             {
                 cubeTextTupleList.Add((cube, cube.GetComponentInChildren<TextMesh>()));
-                // cubeNumList.Add((cube, int.Parse(cube.GetComponentInChildren<TextMesh>().text)));
             }
         }
 
@@ -56,6 +55,7 @@ namespace AMARI.Assets.Scripts
             {
                 rend.Item2.material = _defMaterial;
             }
+            AssignRandomNumbersToSelectedCubes();
             blockNumberList.Clear();
         }
 
@@ -69,17 +69,22 @@ namespace AMARI.Assets.Scripts
         }
         private void AssignRandomNumbersToSelectedCubes()
         {
-            Debug.Log("List is Clear!!");
-            cubeObjectList.Clear();
+            // 選択したキューブに1～9までの乱数を割り当てる
+            foreach(var cube in cubeTextMeshList)
+            {
+                cube.text = Random.Range(1, 10).ToString();
+            }
+            cubeTextMeshList.Clear();
         }
 
         public void OnRecievedOneShotGetCubeNumbers(GameObject obj)
         {
-            cubeObjectList.Add(obj);
             // 送られてきたGameObjectがcubeTextTupleListにある場合にはTextMeshのTextをintに変換してListに入れる
             if(cubeTextTupleList.TupleContains(obj, LRSwitch.LEFT))
             {
                 // Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
+                // Debug.Log(cubeTextTupleList.TupleContainsGetComponent(obj));
+                cubeTextMeshList.Add(cubeTextTupleList.TupleContainsGetComponent(obj));
                 blockNumberList.Add(int.Parse(cubeTextTupleList.TupleContainsGetComponent(obj).text));
                 ExecuteEvents.Execute<ICalculateProvider>(
                     target: gameObject,
