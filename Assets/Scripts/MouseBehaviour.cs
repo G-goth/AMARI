@@ -34,13 +34,15 @@ namespace AMARI.Assets.Scripts
 
             // マウスボタンリリース時の挙動
             var mouseRelease = this.UpdateAsObservable()
+                .Where(_ => cubeObjectList.Count > 1)
                 .Where(_ => Input.GetMouseButtonUp(0))
                 .Subscribe(_ => {
                     ExecuteEvents.Execute<IMessageProvider>(
                         target: gameObject,
                         eventData: null,
-                        functor: (reciever, eventData) => reciever.OnRecievedMaterialAllChange()
-                    );
+                        functor: (reciever, eventData) => {
+                            reciever.OnRecievedMaterialAllChange();
+                    });
                     cubeObjectList.Clear();
                 });
         }

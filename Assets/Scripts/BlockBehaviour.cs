@@ -18,17 +18,7 @@ namespace AMARI.Assets.Scripts
         private List<(GameObject, Renderer)> cubeRendererTupleList = new List<(GameObject, Renderer)>();
         private List<(GameObject, TextMesh)> cubeTextTupleList = new List<(GameObject, TextMesh)>();
         private List<GameObject> cubeObjectList = new List<GameObject>();
-        // private List<(GameObject, int)> cubeNumList = new List<(GameObject, int)>();
-        private BlockStatus blkNumberArray;
         private static readonly int CUBEINDEXNUMBER = 9;
-
-        /// <summary>
-        /// Awake is called when the script instance is being loaded.
-        /// </summary>
-        void Awake()
-        {
-            blkNumberArray = Resources.Load<BlockStatus>("BlockStatus");
-        }
 
         // Start is called before the first frame update
         void Start()
@@ -89,6 +79,7 @@ namespace AMARI.Assets.Scripts
             // 送られてきたGameObjectがcubeTextTupleListにある場合にはTextMeshのTextをintに変換してListに入れる
             if(cubeTextTupleList.TupleContains(obj, LRSwitch.LEFT))
             {
+                Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
                 blockNumberList.Add(int.Parse(cubeTextTupleList.TupleContainsComponent(obj).text));
                 ExecuteEvents.Execute<ICalculateProvider>(
                     target: gameObject,

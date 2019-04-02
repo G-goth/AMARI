@@ -11,7 +11,12 @@ namespace AMARI.Assets.Scripts
     {
         [SerializeField]
         private int LIMIT = 10;
-        private int answer;
+        private int answer = 0;
+        public int AnswerProp
+        {
+            set{ this.answer = value; }
+            get{ return this.answer; }
+        }
 
         /// <summary>
         /// Start is called on the frame when a script is enabled just before
