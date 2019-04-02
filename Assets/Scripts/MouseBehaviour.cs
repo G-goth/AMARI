@@ -25,12 +25,10 @@ namespace AMARI.Assets.Scripts
                     ExecuteEvents.Execute<IMessageProvider>(
                         target: gameObject,
                         eventData: null,
-                        functor: (reciever, eventData) => reciever.OnRecievedOneShotMaterialChange(GetObjectByRayCastHit())
-                    );
-                    ExecuteEvents.Execute<IMessageProvider>(
-                        target: gameObject,
-                        eventData: null,
-                        functor: (reciever, eventData) => reciever.OnRecievedOneShotChangeNumbers(GetObjectByRayCastHit())
+                        functor: (reciever, eventData) => {
+                            reciever.OnRecievedOneShotMaterialChange(GetObjectByRayCastHit());
+                            reciever.OnRecievedOneShotChangeNumbers(GetObjectByRayCastHit());
+                        }
                     );
                 });
 

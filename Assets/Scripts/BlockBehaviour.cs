@@ -62,7 +62,6 @@ namespace AMARI.Assets.Scripts
         }
         public void OnRecievedMaterialAllChange()
         {
-            AllocateRandomNumbers();
             foreach(var rend in cubeRendererTupleList)
             {
                 rend.Item2.material = _defMaterial;
