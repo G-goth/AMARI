@@ -29,7 +29,7 @@ namespace AMARI.Assets.Scripts
                         eventData: null,
                         functor: (reciever, eventData) => {
                             reciever.OnRecievedOneShotMaterialChange(GetObjectByRayCastHit());
-                            reciever.OnRecievedOneShotChangeNumbers(GetObjectByRayCastHit());
+                            reciever.OnRecievedOneShotGetCubeNumbers(GetObjectByRayCastHit());
                         }
                     );
                 });

@@ -73,14 +73,14 @@ namespace AMARI.Assets.Scripts
             cubeObjectList.Clear();
         }
 
-        public void OnRecievedOneShotChangeNumbers(GameObject obj)
+        public void OnRecievedOneShotGetCubeNumbers(GameObject obj)
         {
             cubeObjectList.Add(obj);
             // 送られてきたGameObjectがcubeTextTupleListにある場合にはTextMeshのTextをintに変換してListに入れる
             if(cubeTextTupleList.TupleContains(obj, LRSwitch.LEFT))
             {
                 // Debug.Log(System.Reflection.MethodBase.GetCurrentMethod());
-                blockNumberList.Add(int.Parse(cubeTextTupleList.TupleContainsComponent(obj).text));
+                blockNumberList.Add(int.Parse(cubeTextTupleList.TupleContainsGetComponent(obj).text));
                 ExecuteEvents.Execute<ICalculateProvider>(
                     target: gameObject,
                     eventData: null,

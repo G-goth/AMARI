@@ -89,7 +89,7 @@ namespace AMARI.Assets.Scripts
                 return default;
             }
         }
-        public static TComponent TupleContainsComponent<TObject, TComponent, TValue>(this IList<(TObject, TComponent)> extList, TValue value)
+        public static TComponent TupleContainsGetComponent<TObject, TComponent, TValue>(this IList<(TObject, TComponent)> extList, TValue value)
         {
             return extList.First(obj => obj.Item1.Equals(value)).Item2;
         }

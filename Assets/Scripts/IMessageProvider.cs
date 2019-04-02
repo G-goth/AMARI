@@ -13,6 +13,6 @@ namespace AMARI.Assets.Scripts
     {
         void OnRecievedOneShotMaterialChange(GameObject obj);
         void OnRecievedMaterialAllChange();
-        void OnRecievedOneShotChangeNumbers(GameObject obj);
+        void OnRecievedOneShotGetCubeNumbers(GameObject obj);
     }
 }
