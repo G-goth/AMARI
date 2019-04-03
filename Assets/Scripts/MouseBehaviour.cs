@@ -40,6 +40,7 @@ namespace AMARI.Assets.Scripts
                 .Where(_ => cubeObjectList.Count >= 1)
                 .Where(_ => Input.GetMouseButtonUp(0))
                 .Subscribe(_ => {
+                    // ここに10未満の数字のときにキューブの数値を変えない処理を書く
                     ExecuteEvents.Execute<IMessageProvider>(
                         target: gameObject,
                         eventData: null,
