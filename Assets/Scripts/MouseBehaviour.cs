@@ -9,13 +9,14 @@ namespace AMARI.Assets.Scripts
 {
     public class MouseBehaviour : MonoBehaviour
     {
+        CalcBehaviour ansReset;
         /// <summary>
         /// Start is called on the frame when a script is enabled just before
         /// any of the Update methods is called the first time.
         /// </summary>
         void Start()
         {
-            var ansReset = GetComponent<CalcBehaviour>();
+            ansReset = GetComponent<CalcBehaviour>();
 
             List<GameObject> cubeObjectList = new List<GameObject>();
             // マウスホールド時の挙動
@@ -52,6 +53,7 @@ namespace AMARI.Assets.Scripts
         private GameObject GetObjectByRayCastHit()
         {
             // ここに10以上の数値になったときにレイキャストを飛ばさないような処理を書く
+            if(ansReset.AnswerProp >= 10) return null;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit = new RaycastHit();
             if(Physics.Raycast(ray.origin, ray.direction, out hit, 100.0f))
