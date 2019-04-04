@@ -71,12 +71,10 @@ namespace AMARI.Assets.Scripts
         }
         private void AssignRandomNumbersToSelectedCubes()
         {
+            // 選択したキューブに書かれている数値の合計値が10未満だったら即リターン
+            if(ansReset.AnswerProp < 10) return;
+
             // 選択したキューブに1～9までの乱数を割り当てる
-            if(ansReset.AnswerProp < 10) 
-            {
-                ansReset.AnswerProp = 0;
-                return;
-            }
             foreach(var cube in cubeTextMeshList)
             {
                 cube.text = Random.Range(1, 10).ToString();
