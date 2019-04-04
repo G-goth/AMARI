@@ -19,10 +19,12 @@ namespace AMARI.Assets.Scripts
         private List<(GameObject, TextMesh)> cubeTextTupleList = new List<(GameObject, TextMesh)>();
         private List<TextMesh> cubeTextMeshList = new List<TextMesh>();
         private static readonly int CUBEINDEXNUMBER = 9;
-
+        private CalcBehaviour ansReset;
+        
         // Start is called before the first frame update
         void Start()
         {
+            ansReset = GetComponent<CalcBehaviour>();
             // キューブに対して乱数を割り当てる
             var allocRandamNum = this.UpdateAsObservable()
                 .Distinct()
@@ -70,6 +72,11 @@ namespace AMARI.Assets.Scripts
         private void AssignRandomNumbersToSelectedCubes()
         {
             // 選択したキューブに1～9までの乱数を割り当てる
+            if(ansReset.AnswerProp < 10) 
+            {
+                ansReset.AnswerProp = 0;
+                return;
+            }
             foreach(var cube in cubeTextMeshList)
             {
                 cube.text = Random.Range(1, 10).ToString();
