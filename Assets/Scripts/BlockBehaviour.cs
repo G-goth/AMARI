@@ -18,6 +18,7 @@ namespace AMARI.Assets.Scripts
         private List<(GameObject, Renderer)> cubeRendererTupleList = new List<(GameObject, Renderer)>();
         private List<(GameObject, TextMesh)> cubeTextTupleList = new List<(GameObject, TextMesh)>();
         private List<TextMesh> cubeTextMeshList = new List<TextMesh>();
+        private static readonly int TEN = 10;
         private static readonly int CUBEINDEXNUMBER = 9;
         private CalcBehaviour ansReset;
         
@@ -66,13 +67,13 @@ namespace AMARI.Assets.Scripts
             // キューブに1～9までの乱数を割り当てる
             for(int i = 0; i < CUBEINDEXNUMBER; ++i)
             {
-                cubeTextTupleList[i].Item2.text = Random.Range(1, 10).ToString();
+                cubeTextTupleList[i].Item2.text = Random.Range(1, 5).ToString();
             }
         }
         private void AssignRandomNumbersToSelectedCubes()
         {
             // 選択したキューブに書かれている数値の合計値が10未満だったらList<TextMesh>をクリアして即リターン
-            if(ansReset.AnswerProp < 10)
+            if(ansReset.AnswerProp < TEN)
             {
                 cubeTextMeshList.Clear();
                 return;
@@ -81,7 +82,7 @@ namespace AMARI.Assets.Scripts
             // 選択したキューブに1～9までの乱数を割り当てる
             foreach(var cube in cubeTextMeshList)
             {
-                cube.text = Random.Range(1, 10).ToString();
+                cube.text = Random.Range(1, 5).ToString();
             }
             cubeTextMeshList.Clear();
         }
