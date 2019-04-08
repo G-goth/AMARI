@@ -50,6 +50,7 @@ namespace AMARI.Assets.Scripts
                             reciever.OnRecievedMaterialAllChange();
                     });
                     ansReset.AnswerProp = 0;
+                    ansReset.CoefficientProp = 1;
                     cubeObjectList.Clear();
                 });
         }
