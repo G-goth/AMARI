@@ -12,12 +12,17 @@ namespace AMARI.Assets.Scripts
         [SerializeField]
         private int LIMIT = 10;
         private int answer = 0;
+        private int over = 0;
         public int AnswerProp
         {
             get{ return this.answer; }
             set{ this.answer = value; }
         }
-        public int OverFlowAnsProp{ get; private set; }
+        public int OverFlowAnsProp
+        {
+            get{ return this.over; }
+            private set{ this.over = value; }
+        }
         public int ScoreProp{ get; set; }
         public int CoefficientProp{ get; set; }
 
@@ -45,11 +50,11 @@ namespace AMARI.Assets.Scripts
                 OverFlowAnsProp = over;
                 ScoreProp = CalculateScore(sum, CoefficientProp);
                 CoefficientProp = 1;
-                // Debug.Log("Score is " + ScoreProp);
-                // Debug.Log("Over Flow!! Over is " + over);
+                // Debug.Log("Over Flow !! Number is " + over);
             }
         }
 
+        // スコアの計算
         private int CalculateScore(int count, int coefficient) => count * coefficient;
     }
 }

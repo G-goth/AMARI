@@ -20,6 +20,7 @@ namespace AMARI.Assets.Scripts
         private List<TextMesh> cubeTextMeshList = new List<TextMesh>();
         private static readonly int TEN = 10;
         private static readonly int CUBEINDEXNUMBER = 9;
+        private static readonly int RANDMAX = 10;
         private CalcBehaviour ansReset;
         
         // Start is called before the first frame update
@@ -58,7 +59,7 @@ namespace AMARI.Assets.Scripts
             {
                 rend.Item2.material = _defMaterial;
             }
-            AssignRandomNumbersToSelectedCubes();
+            AssignRandomNumbersToSelectedCubes(ansReset.OverFlowAnsProp);
             blockNumberList.Clear();
         }
 
@@ -67,7 +68,7 @@ namespace AMARI.Assets.Scripts
             // キューブに1～9までの乱数を割り当てる
             for(int i = 0; i < CUBEINDEXNUMBER; ++i)
             {
-                cubeTextTupleList[i].Item2.text = Random.Range(1, 5).ToString();
+                cubeTextTupleList[i].Item2.text = Random.Range(1, RANDMAX).ToString();
             }
         }
         private void AssignRandomNumbersToSelectedCubes()
@@ -82,7 +83,40 @@ namespace AMARI.Assets.Scripts
             // 選択したキューブに1～9までの乱数を割り当てる
             foreach(var cube in cubeTextMeshList)
             {
-                cube.text = Random.Range(1, 5).ToString();
+                cube.text = Random.Range(1, RANDMAX).ToString();
+            }
+            cubeTextMeshList.Clear();
+        }
+        private void AssignRandomNumbersToSelectedCubes(int remainder)
+        {
+            // 選択したキューブに書かれている数値の合計値が10未満だったらList<TextMesh>をクリアして即リターン
+            if(ansReset.AnswerProp < TEN)
+            {
+                cubeTextMeshList.Clear();
+                return;
+            }
+            
+            // 配列のインデックス
+            var cubeIndex = cubeTextMeshList.Count - 1;
+            // ランダムな値をList<T>に代入
+            var cubeText = Enumerable.Range(1, cubeIndex)
+                .Select(index => cubeTextMeshList[index])
+                .Select(mesh => mesh.text)
+                .Select(text => text = Random.Range(1, RANDMAX).ToString()).ToList();
+            // 選んだキューブにランダムな数値を入れる
+            for(int i = 0; i < cubeIndex; ++i)
+            {
+                cubeTextMeshList[i].text = cubeText[i];
+            }
+            // 最後に選択したあまりの数値が0のときはランダムな値を入れる
+            if(remainder == 0)
+            {
+                cubeTextMeshList[cubeIndex].text = Random.Range(1, RANDMAX).ToString();
+            }
+            // あまりの数値を入れる
+            else
+            {
+                cubeTextMeshList[cubeIndex].text = remainder.ToString();
             }
             cubeTextMeshList.Clear();
         }
