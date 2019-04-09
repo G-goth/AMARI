@@ -12,20 +12,24 @@ namespace AMARI.Assets.Scripts
         private static readonly int ONE = 1;
         private static readonly int TEN = 10;
         private CalcBehaviour ansReset;
+        // private List<GameObject> cubeObjectList = new List<GameObject>();
+        public int CubeListElementCountProp{ get; set;}
         /// <summary>
         /// Start is called on the frame when a script is enabled just before
         /// any of the Update methods is called the first time.
         /// </summary>
         void Start()
         {
+            // 選択したキューブのオブジェクトをスタックするList<T>
+            List<GameObject> cubeObjectList = new List<GameObject>();
+            // CalcBehaviourを取得
             ansReset = GetComponent<CalcBehaviour>();
 
-            List<GameObject> cubeObjectList = new List<GameObject>();
             // マウスホールド時の挙動
             var mouseHold = this.UpdateAsObservable()
                 .Where(_ => Input.GetMouseButton(0))
                 .Select(_ => GetObjectByRayCastHit())
-                .Where(cube => cubeObjectList.IsAddTriming(cube) & GetObjectByRayCastHit() != null)
+                .Where(cube => GetObjectByRayCastHit() != null && cubeObjectList.IsAddTriming(cube))
                 .Subscribe(_ => {
                     ExecuteEvents.Execute<IMessageProvider>(
                         target: gameObject,
@@ -36,6 +40,14 @@ namespace AMARI.Assets.Scripts
                         }
                     );
                 });
+            // // マウスホールドでキューブオブジェクトの個数を取得
+            // var mouseHoldOnGetCubeCount = this.UpdateAsObservable()
+            //     .Where(_ => Input.GetMouseButton(0))
+            //     .Select(_ => CubeListElementCountProp = cubeObjectList.Count)
+            //     .DistinctUntilChanged()
+            //     .Subscribe(index => {
+            //         Debug.Log(index);
+            //     });
 
             // マウスボタンリリース時の挙動
             var mouseRelease = this.UpdateAsObservable()

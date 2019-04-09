@@ -21,6 +21,7 @@ namespace AMARI.Assets.Scripts
         private (bool, bool, bool) threeCount;
         private static readonly int TEN = 10;
         private CalcBehaviour calculatedRemainder;
+        private MouseBehaviour cubeCount;
         private List<Text> waitTextObject = new List<Text>();
         public int RemainderNumberProp{ get; private set; }
         /// <summary>
@@ -29,6 +30,9 @@ namespace AMARI.Assets.Scripts
         /// </summary>
         void Start()
         {
+            // 選択しているキューブの個数を取得
+            cubeCount = GameObject.FindGameObjectWithTag("GameController").GetComponent<MouseBehaviour>();
+
             // 残機の状態を表すテキストを取得
             waitTextObject = GameObject.FindGameObjectsWithTag("CounterSignal").Select(obj => obj.GetComponent<Text>()).ToList();
             threeCount.Item1 = true;
@@ -49,7 +53,7 @@ namespace AMARI.Assets.Scripts
 
             // マウスリリースの時に現在のタイムを取得
             var remainderTime = this.UpdateAsObservable()
-                .Where(_ => Input.GetMouseButtonUp(0))
+                .Where(_ => cubeCount.CubeListElementCountProp < 0 & Input.GetMouseButtonUp(0))
                 .Where(_ => timerSlider.value > 0)
                 .Subscribe(_ => {
                     // タイマーへ加算する処理
