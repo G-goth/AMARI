@@ -56,12 +56,13 @@ namespace AMARI.Assets.Scripts
                 .Where(_ => timerSlider.value > 0)
                 .Subscribe(_ => {
                     // タイマーへ加算する処理
-                    if(calculatedRemainder.AnswerProp <= 10)
+                    if(calculatedRemainder.AnswerProp == 10)
                     {
                         timerSlider.value += TEN;
                     }
                     else
                     {
+                        Debug.Log("TEST");
                         timerSlider.value += calculatedRemainder.OverFlowAnsProp;
                     }
                 });

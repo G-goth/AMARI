@@ -40,6 +40,12 @@ namespace AMARI.Assets.Scripts
                         }
                     );
                 });
+            // マウスホールドでキューブオブジェクトの個数を取得
+            var mouseHoldOnGetCubeCount = this.UpdateAsObservable()
+                .Where(_ => Input.GetMouseButton(0))
+                .Select(_ => CubeListElementCountProp = cubeObjectList.Count)
+                .DistinctUntilChanged()
+                .Subscribe(index => CubeListElementCountProp = index);
 
             // マウスボタンリリース時の挙動
             var mouseRelease = this.UpdateAsObservable()
