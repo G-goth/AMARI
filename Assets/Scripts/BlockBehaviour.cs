@@ -62,10 +62,14 @@ namespace AMARI.Assets.Scripts
         }
         public void OnRecievedMaterialAllChange()
         {
-            foreach(var rend in cubeRendererTupleList)
+            foreach(var rend in cubeRendererDict)
             {
-                rend.Item2.material = _defMaterial;
+                rend.Value.material = _defMaterial;
             }
+            // foreach(var rend in cubeRendererTupleList)
+            // {
+            //     rend.Item2.material = _defMaterial;
+            // }
             AssignRandomNumbersToSelectedCubes(ansReset.OverFlowAnsProp);
             blockNumberList.Clear();
         }
