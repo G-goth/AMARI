@@ -52,17 +52,16 @@ namespace AMARI.Assets.Scripts
 
             // マウスリリースの時に現在のタイムを取得
             var remainderTime = this.UpdateAsObservable()
-                .Where(_ => cubeCount.CubeListElementCountProp < 0 & Input.GetMouseButtonUp(0))
+                .Where(_ => cubeCount.CubeListElementCountProp > 0 & Input.GetMouseButtonUp(0))
                 .Where(_ => timerSlider.value > 0)
                 .Subscribe(_ => {
                     // タイマーへ加算する処理
-                    if(calculatedRemainder.AnswerProp == 10)
+                    if(calculatedRemainder.OverFlowAnsProp == 0)
                     {
                         timerSlider.value += TEN;
                     }
                     else
                     {
-                        Debug.Log("TEST");
                         timerSlider.value += calculatedRemainder.OverFlowAnsProp;
                     }
                 });
