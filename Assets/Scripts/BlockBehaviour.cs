@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UniRx;
 using UniRx.Triggers;
-using AMARI.Assets.Scripts.ScriptableObjectFolder;
 
 namespace AMARI.Assets.Scripts
 {
@@ -14,13 +13,19 @@ namespace AMARI.Assets.Scripts
         private Material _material = (default);
         [SerializeField]
         private Material _defMaterial = (default);
-        List<int> blockNumberList = new List<int>();
-        private List<(GameObject, Renderer)> cubeRendererTupleList = new List<(GameObject, Renderer)>();
-        private List<(GameObject, TextMesh)> cubeTextTupleList = new List<(GameObject, TextMesh)>();
-        private List<TextMesh> cubeTextMeshList = new List<TextMesh>();
+        // 定数
         private static readonly int TEN = 10;
         private static readonly int CUBEINDEXNUMBER = 9;
         private static readonly int RANDMAX = 10;
+        // レイキャストで取得したキューブの数字を一時的に入れる
+        List<int> blockNumberList = new List<int>();
+        // キューブとレンダラー
+        private List<(GameObject, Renderer)> cubeRendererTupleList = new List<(GameObject, Renderer)>();
+        private Dictionary<GameObject, Renderer> cubeRendererDict = new Dictionary<GameObject, Renderer>();
+        // キューブとテキストメッシュ
+        private List<(GameObject, TextMesh)> cubeTextTupleList = new List<(GameObject, TextMesh)>();
+        private Dictionary<GameObject, TextMesh> cubeTextDict = new Dictionary<GameObject, TextMesh>();
+        private List<TextMesh> cubeTextMeshList = new List<TextMesh>();
         private CalcBehaviour ansReset;
         
         // Start is called before the first frame update
@@ -37,7 +42,8 @@ namespace AMARI.Assets.Scripts
             objectList.AddRange(GameObject.FindGameObjectsWithTag("Cube").OrderBy(go => go.name));
             foreach(var cube in objectList)
             {
-                cubeRendererTupleList.Add((cube, cube.GetComponent<Renderer>()));
+                cubeRendererDict.Add(cube, cube.GetComponent<Renderer>());
+                // cubeRendererTupleList.Add((cube, cube.GetComponent<Renderer>()));
             }
 
             // オブジェクト名で昇順でソートしてTextMeshをListに代入する(ここの初期化処理を[SerializeField]を使って書き直す)
@@ -45,7 +51,8 @@ namespace AMARI.Assets.Scripts
             cubeTextMeshList.AddRange(GameObject.FindGameObjectsWithTag("Cube").OrderBy(go => go.name));
             foreach(var cube in cubeTextMeshList)
             {
-                cubeTextTupleList.Add((cube, cube.GetComponentInChildren<TextMesh>()));
+                cubeTextDict.Add(cube, cube.GetComponent<TextMesh>());
+                // cubeTextTupleList.Add((cube, cube.GetComponentInChildren<TextMesh>()));
             }
         }
 
