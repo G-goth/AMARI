@@ -16,15 +16,12 @@ namespace AMARI.Assets.Scripts
         private Material _defMaterial = (default);
         // 定数
         private static readonly int TEN = 10;
-        private static readonly int CUBEINDEXNUMBER = 9;
         private static readonly int RANDMAX = 10;
         // レイキャストで取得したキューブの数字を一時的に入れる
         List<int> blockNumberList = new List<int>();
         // キューブとレンダラー
-        // private List<(GameObject, Renderer)> cubeRendererTupleList = new List<(GameObject, Renderer)>();
         private Dictionary<GameObject, Renderer> cubeRendererDict = new Dictionary<GameObject, Renderer>();
         // キューブとテキストメッシュ
-        // private List<(GameObject, TextMesh)> cubeTextTupleList = new List<(GameObject, TextMesh)>();
         private Dictionary<GameObject, TextMesh> cubeTextDict = new Dictionary<GameObject, TextMesh>();
         private List<TextMesh> cubeTextMeshList = new List<TextMesh>();
         private CalcBehaviour calcProps;
@@ -44,7 +41,6 @@ namespace AMARI.Assets.Scripts
             foreach(var cube in objectList)
             {
                 cubeRendererDict.Add(cube, cube.GetComponent<Renderer>());
-                // cubeRendererTupleList.Add((cube, cube.GetComponent<Renderer>()));
             }
 
             // オブジェクト名で昇順でソートしてTextMeshをListに代入する(ここの初期化処理を[SerializeField]を使って書き直す)
@@ -53,7 +49,6 @@ namespace AMARI.Assets.Scripts
             foreach(var cube in cubeTextMeshList)
             {
                 cubeTextDict.Add(cube, cube.GetComponentInChildren<TextMesh>());
-                // cubeTextTupleList.Add((cube, cube.GetComponentInChildren<TextMesh>()));
             }
         }
 
@@ -67,10 +62,6 @@ namespace AMARI.Assets.Scripts
             {
                 rend.Value.material = _defMaterial;
             }
-            // foreach(var rend in cubeRendererTupleList)
-            // {
-            //     rend.Item2.material = _defMaterial;
-            // }
             AssignRandomNumbersToSelectedCubes(calcProps.OverFlowAnsProp);
             blockNumberList.Clear();
         }
@@ -82,10 +73,6 @@ namespace AMARI.Assets.Scripts
             {
                 text.Value.text = Random.Range(1, RANDMAX).ToString();
             }
-            // for(int i = 0; i < CUBEINDEXNUMBER; ++i)
-            // {
-            //     cubeTextTupleList[i].Item2.text = Random.Range(1, RANDMAX).ToString();
-            // }
         }
         private void AssignRandomNumbersToSelectedCubes()
         {
@@ -150,16 +137,6 @@ namespace AMARI.Assets.Scripts
                     functor: (reciever, evenData) => reciever.CalculateLimited(blockNumberList)
                 );
             }
-            // if(cubeTextTupleList.TupleContains(obj, LRSwitch.LEFT))
-            // {
-            //     cubeTextMeshList.Add(cubeTextTupleList.TupleContainsGetComponent(obj));
-            //     blockNumberList.Add(int.Parse(cubeTextTupleList.TupleContainsGetComponent(obj).text));
-            //     ExecuteEvents.Execute<ICalculateProvider>(
-            //         target: gameObject,
-            //         eventData: null,
-            //         functor: (reciever, eventData) => reciever.CalculateLimited(blockNumberList)
-            //     );
-            // }
         }
     }
 }

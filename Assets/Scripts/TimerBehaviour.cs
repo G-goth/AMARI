@@ -8,7 +8,7 @@ using AMARI.Assets.Scripts;
 
 namespace AMARI.Assets.Scripts
 {
-    public class TimerBehaviour : MonoBehaviour
+    public class TimerBehaviour : MonoBehaviour, ITimerProvider
     {
         [SerializeField]
         private float speedCoeff = 1;
@@ -17,6 +17,8 @@ namespace AMARI.Assets.Scripts
         private static readonly int TEN = 10;
         private List<Toggle> isCheckObject = new List<Toggle>();
         private MouseBehaviour cubeCount;
+        private CalcBehaviour calculatedRemainder;
+        private Slider timerSlider;
         private List<Text> waitTextObject = new List<Text>();
         public int RemainderNumberProp{ get; private set; }
         /// <summary>
@@ -37,10 +39,10 @@ namespace AMARI.Assets.Scripts
             threeCount.Item2 = true;
             threeCount.Item3 = true;
 
-            // キューブの計算のあまりを取得
-            var calculatedRemainder = GameObject.FindGameObjectWithTag("GameController").GetComponent<CalcBehaviour>();
+            // キューブの数値の計算後のあまりを取得
+            calculatedRemainder = GameObject.FindGameObjectWithTag("GameController").GetComponent<CalcBehaviour>();
             // Sliderオブジェクトのセット
-            var timerSlider = GameObject.FindGameObjectWithTag("Canvas").GetComponentInChildren<Slider>();
+            timerSlider = GameObject.FindGameObjectWithTag("Canvas").GetComponentInChildren<Slider>();
             // ゲージの初期値のセット
             timerSlider.maxValue = 30;
             // ゲージをカウントダウンする
@@ -50,27 +52,21 @@ namespace AMARI.Assets.Scripts
                     timerSlider.value -= Time.deltaTime * speedCoeff;
                 });
 
-            // AnswerPropの値を受け取る
-            var getAnsProp = this.UpdateAsObservable()
-                .Subscribe(_ => {
-                    answer = calculatedRemainder.AnswerProp;
-                });
-            // マウスリリースの時に現在のタイムを取得
-            var remainderTime = this.UpdateAsObservable()
-                .Where(_ => cubeCount.CubeListElementCountProp > 0 & Input.GetMouseButtonUp(0))
-                .Where(_ => this.answer >= 10)
-                .Where(_ => timerSlider.value > 0)
-                .Subscribe(_ => {
-                    // タイマーへ加算する処理
-                    if(calculatedRemainder.OverFlowAnsProp == 0)
-                    {
-                        timerSlider.value += TEN;
-                    }
-                    else
-                    {
-                        timerSlider.value += calculatedRemainder.OverFlowAnsProp;
-                    }
-                });
+            // // マウスリリースの時に現在のタイムを取得
+            // var remainderTime = this.UpdateAsObservable()
+            //     .Where(_ => cubeCount.CubeListElementCountProp > 0 & Input.GetMouseButtonUp(0))
+            //     .Where(_ => timerSlider.value > 0)
+            //     .Subscribe(_ => {
+            //         // タイマーへ加算する処理
+            //         if(calculatedRemainder.OverFlowAnsProp == 0)
+            //         {
+            //             timerSlider.value += TEN;
+            //         }
+            //         else
+            //         {
+            //             timerSlider.value += calculatedRemainder.OverFlowAnsProp;
+            //         }
+            //     });
 
             // タイマーが0になったときの挙動
             var timerZero = this.UpdateAsObservable()
@@ -90,6 +86,27 @@ namespace AMARI.Assets.Scripts
                     gameOverText.text = "GameOver...";
                     Debug.Log("GameOver...");
                 });
+        }
+        
+
+        // タイマーへの加算処理
+        public void AddTime()
+        {
+            // 選んでいるキューブが0この場合は即リターン
+            if(cubeCount.CubeListElementCountProp < 0) return;
+
+            // 選んでいるキューブの数値が10未満の時は即リターン
+            if(calculatedRemainder.AnswerProp <= 10) return;
+
+            // ピッタリ10の時とそうでない時でタイマーへの加算量を変える
+            if(calculatedRemainder.OverFlowAnsProp == 0)
+            {
+                timerSlider.value += TEN;
+            }
+            else
+            {
+                timerSlider.value += calculatedRemainder.OverFlowAnsProp;
+            }
         }
 
         private void ThreeCount()

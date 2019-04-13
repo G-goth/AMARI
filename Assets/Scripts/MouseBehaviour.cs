@@ -13,7 +13,7 @@ namespace AMARI.Assets.Scripts
         private static readonly int ONE = 1;
         private static readonly int TEN = 10;
         private CalcBehaviour ansReset;
-        // private List<GameObject> cubeObjectList = new List<GameObject>();
+        private TimerBehaviour addTime;
         public int CubeListElementCountProp{ get; set;}
         /// <summary>
         /// Start is called on the frame when a script is enabled just before
@@ -21,6 +21,8 @@ namespace AMARI.Assets.Scripts
         /// </summary>
         void Start()
         {
+            // TimerBehaviourを取得
+            addTime = GameObject.FindGameObjectWithTag("Canvas").GetComponent<TimerBehaviour>();
             // 選択したキューブのオブジェクトをスタックするList<T>
             List<GameObject> cubeObjectList = new List<GameObject>();
             // CalcBehaviourを取得
@@ -60,6 +62,8 @@ namespace AMARI.Assets.Scripts
                         functor: (reciever, eventData) => {
                             reciever.OnRecievedMaterialAllChange();
                     });
+                    // 合計値などを0にする前にタイマーに反映
+                    addTime.AddTime();
                     ansReset.AnswerProp = 0;
                     ansReset.CoefficientProp = 1;
                     cubeObjectList.Clear();
