@@ -75,22 +75,6 @@ namespace AMARI.Assets.Scripts
                 text.Value.text = Random.Range(1, RANDMAX).ToString();
             }
         }
-        private void AssignRandomNumbersToSelectedCubes()
-        {
-            // 選択したキューブに書かれている数値の合計値が10未満だったらList<TextMesh>をクリアして即リターン
-            if(calcProps.AnswerProp < TEN)
-            {
-                cubeTextMeshList.Clear();
-                return;
-            }
-
-            // 選択したキューブに1～9までの乱数を割り当てる
-            foreach(var cube in cubeTextMeshList)
-            {
-                cube.text = Random.Range(1, LOW_RANDMAX).ToString();
-            }
-            cubeTextMeshList.Clear();
-        }
         private void AssignRandomNumbersToSelectedCubes(int remainder)
         {
             // 選択したキューブに書かれている数値の合計値が10未満だったらList<TextMesh>をクリアして即リターン
@@ -115,7 +99,7 @@ namespace AMARI.Assets.Scripts
             // 最後に選択したあまりの数値が0のときは低めなランダムな値を入れる
             if(remainder == 0)
             {
-                cubeTextMeshList[cubeIndex].text = Random.Range(1, RANDMAX).ToString();
+                cubeTextMeshList[cubeIndex].text = Random.Range(1, LOW_RANDMAX).ToString();
             }
             // あまりの数値を入れる
             else
