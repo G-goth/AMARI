@@ -16,6 +16,7 @@ namespace AMARI.Assets.Scripts
         private Material _defMaterial = (default);
         // 定数
         private static readonly int TEN = 10;
+        private static readonly int LOW_RANDMAX = 4;
         private static readonly int RANDMAX = 10;
         // レイキャストで取得したキューブの数字を一時的に入れる
         List<int> blockNumberList = new List<int>();
@@ -86,7 +87,7 @@ namespace AMARI.Assets.Scripts
             // 選択したキューブに1～9までの乱数を割り当てる
             foreach(var cube in cubeTextMeshList)
             {
-                cube.text = Random.Range(1, RANDMAX).ToString();
+                cube.text = Random.Range(1, LOW_RANDMAX).ToString();
             }
             cubeTextMeshList.Clear();
         }
@@ -111,7 +112,7 @@ namespace AMARI.Assets.Scripts
             {
                 cubeTextMeshList[i].text = cubeText[i];
             }
-            // 最後に選択したあまりの数値が0のときはランダムな値を入れる
+            // 最後に選択したあまりの数値が0のときは低めなランダムな値を入れる
             if(remainder == 0)
             {
                 cubeTextMeshList[cubeIndex].text = Random.Range(1, RANDMAX).ToString();
