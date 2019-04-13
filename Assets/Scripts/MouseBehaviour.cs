@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UniRx;
 using UniRx.Triggers;
+using AMARI.Assets.Scripts.Extensions;
 
 namespace AMARI.Assets.Scripts
 {

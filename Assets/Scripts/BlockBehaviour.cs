@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UniRx;
 using UniRx.Triggers;
+using AMARI.Assets.Scripts.Extensions;
 
 namespace AMARI.Assets.Scripts
 {
@@ -20,18 +21,18 @@ namespace AMARI.Assets.Scripts
         // レイキャストで取得したキューブの数字を一時的に入れる
         List<int> blockNumberList = new List<int>();
         // キューブとレンダラー
-        private List<(GameObject, Renderer)> cubeRendererTupleList = new List<(GameObject, Renderer)>();
+        // private List<(GameObject, Renderer)> cubeRendererTupleList = new List<(GameObject, Renderer)>();
         private Dictionary<GameObject, Renderer> cubeRendererDict = new Dictionary<GameObject, Renderer>();
         // キューブとテキストメッシュ
-        private List<(GameObject, TextMesh)> cubeTextTupleList = new List<(GameObject, TextMesh)>();
+        // private List<(GameObject, TextMesh)> cubeTextTupleList = new List<(GameObject, TextMesh)>();
         private Dictionary<GameObject, TextMesh> cubeTextDict = new Dictionary<GameObject, TextMesh>();
         private List<TextMesh> cubeTextMeshList = new List<TextMesh>();
-        private CalcBehaviour ansReset;
+        private CalcBehaviour calcProps;
         
         // Start is called before the first frame update
         void Start()
         {
-            ansReset = GetComponent<CalcBehaviour>();
+            calcProps = GetComponent<CalcBehaviour>();
             // キューブに対して乱数を割り当てる
             var allocRandamNum = this.UpdateAsObservable()
                 .Distinct()
@@ -51,7 +52,7 @@ namespace AMARI.Assets.Scripts
             cubeTextMeshList.AddRange(GameObject.FindGameObjectsWithTag("Cube").OrderBy(go => go.name));
             foreach(var cube in cubeTextMeshList)
             {
-                cubeTextDict.Add(cube, cube.GetComponent<TextMesh>());
+                cubeTextDict.Add(cube, cube.GetComponentInChildren<TextMesh>());
                 // cubeTextTupleList.Add((cube, cube.GetComponentInChildren<TextMesh>()));
             }
         }
@@ -70,22 +71,26 @@ namespace AMARI.Assets.Scripts
             // {
             //     rend.Item2.material = _defMaterial;
             // }
-            AssignRandomNumbersToSelectedCubes(ansReset.OverFlowAnsProp);
+            AssignRandomNumbersToSelectedCubes(calcProps.OverFlowAnsProp);
             blockNumberList.Clear();
         }
 
         private void AllocateRandomNumbers()
         {
             // キューブに1～9までの乱数を割り当てる
-            for(int i = 0; i < CUBEINDEXNUMBER; ++i)
+            foreach(var text in cubeTextDict)
             {
-                cubeTextTupleList[i].Item2.text = Random.Range(1, RANDMAX).ToString();
+                text.Value.text = Random.Range(1, RANDMAX).ToString();
             }
+            // for(int i = 0; i < CUBEINDEXNUMBER; ++i)
+            // {
+            //     cubeTextTupleList[i].Item2.text = Random.Range(1, RANDMAX).ToString();
+            // }
         }
         private void AssignRandomNumbersToSelectedCubes()
         {
             // 選択したキューブに書かれている数値の合計値が10未満だったらList<TextMesh>をクリアして即リターン
-            if(ansReset.AnswerProp < TEN)
+            if(calcProps.AnswerProp < TEN)
             {
                 cubeTextMeshList.Clear();
                 return;
@@ -101,7 +106,7 @@ namespace AMARI.Assets.Scripts
         private void AssignRandomNumbersToSelectedCubes(int remainder)
         {
             // 選択したキューブに書かれている数値の合計値が10未満だったらList<TextMesh>をクリアして即リターン
-            if(ansReset.AnswerProp < TEN)
+            if(calcProps.AnswerProp < TEN)
             {
                 cubeTextMeshList.Clear();
                 return;
@@ -135,16 +140,26 @@ namespace AMARI.Assets.Scripts
         public void OnRecievedOneShotGetCubeNumbers(GameObject obj)
         {
             // 送られてきたGameObjectがcubeTextTupleListにある場合にはTextMeshのTextをintに変換してListに入れる
-            if(cubeTextTupleList.TupleContains(obj, LRSwitch.LEFT))
+            if(cubeTextDict.ContainsKey(obj))
             {
-                cubeTextMeshList.Add(cubeTextTupleList.TupleContainsGetComponent(obj));
-                blockNumberList.Add(int.Parse(cubeTextTupleList.TupleContainsGetComponent(obj).text));
+                cubeTextMeshList.Add(cubeTextDict.GetMatchingComponent(obj));
+                blockNumberList.Add(int.Parse(cubeTextDict.GetMatchingComponent(obj).text.ToString()));
                 ExecuteEvents.Execute<ICalculateProvider>(
                     target: gameObject,
                     eventData: null,
-                    functor: (reciever, eventData) => reciever.CalculateLimited(blockNumberList)
+                    functor: (reciever, evenData) => reciever.CalculateLimited(blockNumberList)
                 );
             }
+            // if(cubeTextTupleList.TupleContains(obj, LRSwitch.LEFT))
+            // {
+            //     cubeTextMeshList.Add(cubeTextTupleList.TupleContainsGetComponent(obj));
+            //     blockNumberList.Add(int.Parse(cubeTextTupleList.TupleContainsGetComponent(obj).text));
+            //     ExecuteEvents.Execute<ICalculateProvider>(
+            //         target: gameObject,
+            //         eventData: null,
+            //         functor: (reciever, eventData) => reciever.CalculateLimited(blockNumberList)
+            //     );
+            // }
         }
     }
 }
