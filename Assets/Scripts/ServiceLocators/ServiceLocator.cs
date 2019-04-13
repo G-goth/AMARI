@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace AMARI.Assets.Scripts
+namespace AMARI.Assets.Scripts.ServiceLocators
 {
     public class ServiceLocator
     {

@@ -1,14 +1,18 @@
 ﻿using AMARI.Assets.Scripts;
+using AMARI.Assets.Scripts.ServiceLocators;
 
-public class ServiceLocatorProvider : SingletonMonoBehaviour<ServiceLocatorProvider>
+namespace AMARI.Assets.Scripts
 {
-    public ServiceLocator generalCurrent{ get; private set; }
-    /// <summary>
-    /// Awake is called when the script instance is being loaded.
-    /// </summary>
-    protected override void Awake()
+    public class ServiceLocatorProvider : SingletonMonoBehaviour<ServiceLocatorProvider>
     {
-        base.Awake();
-        generalCurrent = new ServiceLocator();
+        public ServiceLocator generalCurrent{ get; private set; }
+        /// <summary>
+        /// Awake is called when the script instance is being loaded.
+        /// </summary>
+        protected override void Awake()
+        {
+            base.Awake();
+            generalCurrent = new ServiceLocator();
+        }
     }
 }
