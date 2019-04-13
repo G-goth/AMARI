@@ -96,15 +96,17 @@ namespace AMARI.Assets.Scripts
             if(cubeCount.CubeListElementCountProp < 0) return;
 
             // 選んでいるキューブの数値が10未満の時は即リターン
-            if(calculatedRemainder.AnswerProp <= 10) return;
+            if(calculatedRemainder.AnswerProp < 10) return;
 
             // ピッタリ10の時とそうでない時でタイマーへの加算量を変える
             if(calculatedRemainder.OverFlowAnsProp == 0)
             {
+                Debug.Log("TEN!!");
                 timerSlider.value += TEN;
             }
             else
             {
+                Debug.Log("Other");
                 timerSlider.value += calculatedRemainder.OverFlowAnsProp;
             }
         }
