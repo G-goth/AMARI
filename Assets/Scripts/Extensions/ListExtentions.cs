@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Collections.Generic;
 
-namespace AMARI.Assets.Scripts
+namespace AMARI.Assets.Scripts.Extensions
 {
     public enum LRSwitch{
         LEFT,

@@ -4,6 +4,11 @@ using UnityEngine.EventSystems;
 
 namespace AMARI.Assets.Scripts
 {
+    interface ITimerProvider : IEventSystemHandler
+    {
+        void AddTime();
+    }
+
     interface ICalculateProvider : IEventSystemHandler
     {
         void CalculateLimited(List<int> numList);

@@ -43,11 +43,13 @@ namespace AMARI.Assets.Scripts
             if(answer >= LIMIT) return;
 
             answer = numList.Sum();
+            AnswerProp = answer;
             if(numList.Sum() >= LIMIT)
             {
                 var sum = numList.Sum();
                 var over = sum - LIMIT;
                 OverFlowAnsProp = over;
+                AnswerProp = sum;
                 ScoreProp = CalculateScore(sum, CoefficientProp);
                 CoefficientProp = 1;
                 // Debug.Log("Over Flow !! Number is " + over);
