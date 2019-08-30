@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using UniRx;
 using UniRx.Triggers;
 using AMARI.Assets.Scripts.Extensions;
+using AMARI.Assets.Scripts.Sounds;
 
 namespace AMARI.Assets.Scripts
 {
@@ -14,6 +15,7 @@ namespace AMARI.Assets.Scripts
         private static readonly int TEN = 10;
         private CalcBehaviour ansReset;
         private TimerBehaviour addTime;
+        private SoundBehaviour hitSound;
         public int CubeListElementCountProp{ get; set;}
         
         /// <summary>
@@ -28,6 +30,8 @@ namespace AMARI.Assets.Scripts
             List<GameObject> cubeObjectList = new List<GameObject>();
             // CalcBehaviourを取得
             ansReset = GetComponent<CalcBehaviour>();
+            // SoundBehaviourを取得
+            hitSound = GameObject.FindGameObjectWithTag("SoundController").GetComponent<SoundBehaviour>();
 
             // マウスホールド時の挙動
             var mouseHold = this.UpdateAsObservable()
@@ -35,6 +39,8 @@ namespace AMARI.Assets.Scripts
                 .Select(_ => GetObjectByRayCastHit())
                 .Where(cube => GetObjectByRayCastHit() != null && cubeObjectList.IsAddTriming(cube))
                 .Subscribe(_ => {
+                    // ここにサウンド再生をするメソッドを入れる
+                    hitSound.SelectingSoundEffectCountProp = cubeObjectList.Count;
                     PostMessageToOnRecievedOneShotMaterialChange();
                     PostMessageToOnRecievedOneShotGetCubeNumbers();
                 });
@@ -50,9 +56,10 @@ namespace AMARI.Assets.Scripts
                 .Where(_ => cubeObjectList.Count >= ONE)
                 .Where(_ => Input.GetMouseButtonUp(0))
                 .Subscribe(_ => {
+                    // フィニッシュサウンドを鳴らす
+                    hitSound.FinishSoundEffectProp = cubeObjectList.Count;
                     // すべてのマテリアルを白に戻す
                     PostMessageToOnRecievedMaterialAllChange();
-
                     // 合計値などを0にする前にタイマーに反映
                     addTime.AddTime();
                     DataReset(cubeObjectList);

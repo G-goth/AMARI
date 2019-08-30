@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Shootable
+  - Cube
+  - CubeText
+  - CounterSignal
+  - Canvas
+  - SoundController
   layers:
   - Default
   - TransparentFX
