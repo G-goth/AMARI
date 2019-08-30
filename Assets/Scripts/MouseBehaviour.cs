@@ -35,14 +35,8 @@ namespace AMARI.Assets.Scripts
                 .Select(_ => GetObjectByRayCastHit())
                 .Where(cube => GetObjectByRayCastHit() != null && cubeObjectList.IsAddTriming(cube))
                 .Subscribe(_ => {
-                    ExecuteEvents.Execute<IMessageProvider>(
-                        target: gameObject,
-                        eventData: null,
-                        functor: (reciever, eventData) => {
-                            reciever.OnRecievedOneShotMaterialChange(GetObjectByRayCastHit());
-                            reciever.OnRecievedOneShotGetCubeNumbers(GetObjectByRayCastHit());
-                        }
-                    );
+                    PostMessageToOnRecievedOneShotMaterialChange();
+                    PostMessageToOnRecievedOneShotGetCubeNumbers();
                 });
             // マウスホールドでキューブオブジェクトの個数を取得
             var mouseHoldOnGetCubeCount = this.UpdateAsObservable()
@@ -56,20 +50,53 @@ namespace AMARI.Assets.Scripts
                 .Where(_ => cubeObjectList.Count >= ONE)
                 .Where(_ => Input.GetMouseButtonUp(0))
                 .Subscribe(_ => {
-                    // ここに10未満の数字のときにキューブの数値を変えない処理を書く
-                    ExecuteEvents.Execute<IMessageProvider>(
-                        target: gameObject,
-                        eventData: null,
-                        functor: (reciever, eventData) => {
-                            reciever.OnRecievedMaterialAllChange();
-                    });
+                    // すべてのマテリアルを白に戻す
+                    PostMessageToOnRecievedMaterialAllChange();
+
                     // 合計値などを0にする前にタイマーに反映
                     addTime.AddTime();
-                    ansReset.AnswerProp = 0;
-                    ansReset.CoefficientProp = 1;
-                    cubeObjectList.Clear();
+                    DataReset(cubeObjectList);
                 });
         }
+        // 各種データのリセット
+        private void DataReset(List<GameObject> cubeObjectList)
+        {
+            ansReset.AnswerProp = 0;
+            ansReset.CoefficientProp = 1;
+            cubeObjectList.Clear();
+        }
+
+        // 特定のメソッドへメッセージを飛ばす
+        private void PostMessageToOnRecievedOneShotMaterialChange()
+        {
+            ExecuteEvents.Execute<IMessageProvider>(
+                target: gameObject,
+                eventData: null,
+                functor: (reciever, evenData) => {
+                    reciever.OnRecievedOneShotMaterialChange(GetObjectByRayCastHit());
+                }
+            );
+        }
+        private void PostMessageToOnRecievedOneShotGetCubeNumbers()
+        {
+            ExecuteEvents.Execute<IMessageProvider>(
+                target: gameObject,
+                eventData: null,
+                functor: (reciever, eventData) => {
+                    reciever.OnRecievedOneShotGetCubeNumbers(GetObjectByRayCastHit());
+                }
+            );
+        }
+        private void PostMessageToOnRecievedMaterialAllChange()
+        {
+            ExecuteEvents.Execute<IMessageProvider>(
+                target: gameObject,
+                eventData: null,
+                functor: (reciever, eventData) => {
+                    reciever.OnRecievedMaterialAllChange();
+            });
+        }
+
         private GameObject GetObjectByRayCastHit()
         {
             // ここに10以上の数値になったときにレイキャストを飛ばさないような処理を書く
