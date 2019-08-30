@@ -41,7 +41,7 @@ namespace AMARI.Assets.Scripts.Sounds
         public int SelectingSoundEffectCountProp{ get; set; }
         private void FiringSoundEffect()
         {
-            hitAudioSource.clip = audioClips[SelectingSoundEffectCountProp];
+            hitAudioSource.clip = audioClips[SelectingSoundEffectCountProp - 1];
             hitAudioSource.Play();
         }
 

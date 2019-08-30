@@ -72,7 +72,8 @@ namespace AMARI.Assets.Scripts
             // キューブに1～9までの乱数を割り当てる
             foreach(var text in cubeTextDict)
             {
-                text.Value.text = Random.Range(1, RANDMAX).ToString();
+                var tempRand = (Random.Range(1, RANDMAX) + Random.Range(1, RANDMAX)) / 2;
+                text.Value.text = tempRand.ToString();
             }
         }
         private void AssignRandomNumbersToSelectedCubes(int remainder)
