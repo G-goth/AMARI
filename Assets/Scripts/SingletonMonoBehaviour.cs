@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using AMARI.Assets.Scripts.ServiceLocators;
 
 namespace AMARI.Assets.Scripts
 {

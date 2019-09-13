@@ -1,4 +1,3 @@
-using UnityEngine;
 using UniRx;
 
 namespace AMARI.Assets.Scripts.Inputs

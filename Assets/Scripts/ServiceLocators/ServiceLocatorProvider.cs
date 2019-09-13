@@ -1,5 +1,4 @@
-﻿using AMARI.Assets.Scripts;
-using AMARI.Assets.Scripts.ServiceLocators;
+﻿using AMARI.Assets.Scripts.ServiceLocators;
 
 namespace AMARI.Assets.Scripts
 {
