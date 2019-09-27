@@ -53,10 +53,12 @@ namespace AMARI.Assets.Scripts
             }
         }
 
+        // 選択したブロックを赤く染める
         public void OnRecievedOneShotMaterialChange(GameObject obj)
         {
             obj.GetComponent<Renderer>().material = _material;
         }
+        // 変更したマテリアルをデフォルトに戻す
         public void OnRecievedMaterialAllChange()
         {
             foreach(var rend in cubeRendererDict)
