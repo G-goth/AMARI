@@ -51,6 +51,10 @@ namespace AMARI.Assets.Scripts
                     timerSlider.value -= Time.deltaTime * speedCoeff;
                 });
 
+            // 徐々に敵のHPが回復する
+            var enemyHitPointRegene = this.FixedUpdateAsObservable()
+                .Subscribe(_ => {});
+
             // // マウスリリースの時に現在のタイムを取得
             // var remainderTime = this.UpdateAsObservable()
             //     .Where(_ => cubeCount.CubeListElementCountProp > 0 & Input.GetMouseButtonUp(0))
@@ -82,8 +86,8 @@ namespace AMARI.Assets.Scripts
                 .Distinct()
                 .Subscribe(_ => {
                     gameOverText.enabled = true;
-                    gameOverText.text = "GameOver...";
-                    Debug.Log("GameOver...");
+                    gameOverText.text = "GameClear!!";
+                    Debug.Log("GameClear!!");
                 });
         }
         
@@ -101,12 +105,12 @@ namespace AMARI.Assets.Scripts
             if(calculatedRemainder.OverFlowAnsProp == 0)
             {
                 Debug.Log("TEN!!");
-                timerSlider.value += TEN;
+                timerSlider.value -= calculatedRemainder.AnswerProp * TEN;
             }
             else
             {
                 Debug.Log("Other");
-                timerSlider.value += calculatedRemainder.OverFlowAnsProp;
+                timerSlider.value -= calculatedRemainder.AnswerProp;
             }
         }
 
