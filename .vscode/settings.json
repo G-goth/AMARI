@@ -53,5 +53,4 @@
         "temp/":true,
         "Temp/":true
     }
-    //"omnisharp.useModernNet": true
 }
